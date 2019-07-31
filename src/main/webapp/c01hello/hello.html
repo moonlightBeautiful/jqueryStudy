@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>hello jquery</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script type="text/javascript">
+        /*
+               不使用jquery和使用jquery对比
+        */
+        /*function hello() {
+            var content = document.getElementById("content").value;
+            alert("hello " + content);
+        }*/
+
+        $(document).ready(function () {
+            $("#actionButton").click(function () {
+                alert($("#content").val());
+            });
+        });
+    </script>
+</head>
+<body>
+<input type="text" id="content" value="hello jquery"/>&nbsp;&nbsp;<input id="actionButton" type="button" value="hello"
+                                                                   onclick="hello()"/>
+</body>
+</html>
