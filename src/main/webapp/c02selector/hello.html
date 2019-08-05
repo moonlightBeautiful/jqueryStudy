@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>hello jquery</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // 基本选择器
+            // $("#a1").css("background-color","red");  // 根据id
+            // $(".c1").css("background-color","red");  // 根据class类别
+            // $("a").css("background-color","red");  // 根据标签元素
+
+            // 属性选择器
+            // $("[href]").css("background-color","red");   // 有href属性的
+            // $("[href='#']").css("background-color","red");   // 有href属性且=#   的
+            // $("[href$='com']").css("background-color","red");
+
+            // 其他选择器
+            // $("p.c1").css("background-color","red");
+            // $("ul li:first").css("background-color","red");  //交
+            $("ul li:last").css("background-color", "red"); //后代选择器
+            /*
+            1.1交集选择器：标记.类{}
+            1.2并集选择器：基本选择器,基本选择器{}
+            1.3后代选择器：基本选择器 空格 基本选择器{}
+            1.4子选择器：基本选择器 > 基本选择器{}
+            1.5相邻弟弟选择器：基本选择器哥哥 + 基本选择器弟弟 {}
+            */
+        });
+    </script>
+    <style type="text/css">
+        .c1 {
+            font-size: 40px;
+        }
+
+    </style>
+
+</head>
+<body>
+<p class="c1">Jquery选择器</p>
+<ul>
+    <li id="i1"><a id="a1" class="c1" href="http://www.java1234.com">Java知识分享网</a></li>
+    <li><a id="a2" class="c1" href="http://www.csdn.net">CSDN</a></li>
+    <li><a href="http://www.iteye.com">iteye</a></li>
+    <li><a href="http://www.cnblogs.com">博客园</a></li>
+    <li><a class="c1" href="#">百度</a></li>
+    <li><a href="http://www.google.com">谷歌</a></li>
+</ul>
+onclick="hello()"/>
+</body>
+</html>

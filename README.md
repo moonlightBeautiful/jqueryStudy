@@ -1,6 +1,3 @@
 # jqueryStudy
-1.hello
-    1.简介：
-        就是封装JavaScript的函数库，开源 免费
-    2.hello：
-    
+对jquery的一个基本的学习
+    1.对jquery的一个简单的认识
