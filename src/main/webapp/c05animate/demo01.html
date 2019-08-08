@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /**
+             * 出现和消失
+             */
+            $("#b1").click(function () {
+                $("#p1").show();
+            });
+
+            $("#b2").click(function () {
+                $("#p1").hide();
+            });
+            /**
+             * 淡入和淡出
+             */
+            $("#b3").click(function () {
+                $("#d1").fadeOut();
+            });
+
+            $("#b4").click(function () {
+                $("#d1").fadeIn();
+            });
+
+            $("#b5").click(function () {
+                // $("#d1").fadeToggle();
+                // $("#d1").fadeToggle("slow"); 可以有参数 fast slow
+                $("#d1").fadeToggle(10000); //几毫秒内切换
+            });
+
+            $("#b6").click(function () {
+                $("#d1").fadeTo("slow", 0.1);    //速度 透明度
+                $("#d2").fadeTo("slow", 0.5);
+                $("#d3").fadeTo("slow", 0.9);
+            });
+
+            /**
+             * 向下展开和向上折叠
+             */
+            $("#b7").click(function () {
+                $("#d4").slideDown("slow");
+            });
+
+            $("#b8").click(function () {
+                $("#d4").slideUp("slow");
+            });
+
+            /**
+             * 自定义动画效果
+             */
+            $("#b9").click(function () {
+                $("#d5").animate({left: '500px'}, 'slow');
+            });
+
+            $("#b10").click(function () {
+                $("#d5").animate({
+                    left: '500px',
+                    opacity: 0.5,
+                    height: '150px',
+                    width: '150px'
+                }, 'slow');
+            });
+
+            $("#b11").click(function () {
+                $("#d5").animate({
+                    left: '500px',
+                    opacity: 0.5,
+                    height: '+=150px',
+                    width: '+=150px'
+                }, 'slow');
+            });
+            /**
+             * 回调函数
+             */
+            $("#b12").click(function () {
+                $("#p2").show(function () {
+                    alert("小日本出来了！");
+                });
+            });
+            /**
+             * 暂停动画
+             */
+            $("#b13").click(function () {
+                $("#d6").animate({left: '1500px'}, 10000);
+            });
+
+            $("#b14").click(function () {
+                $("#d6").stop();
+            });
+        });
+    </script>
+</head>
+<body>
+<p>会脱离文档流，不占位置了。</p>
+<input type="button" value="出来show" id="b1"/>
+<input type="button" value="消失hide" id="b2"/>
+<p id="p1">小日本</p>
+<hr/>
+<p>会脱离文档流，不占位置了。</p>
+<input type="button" value="淡出fadeOut" id="b3"/>
+<input type="button" value="淡入fadeIn" id="b4"/>
+<input type="button" value="淡入淡出开关fadeToggle" id="b5"/>
+<input type="button" value="透明度fadeTo" id="b6"/>
+<div id="d1" style="width: 100px;height: 100px;background-color: red;margin: 10px;"></div>
+<div id="d2" style="width: 100px;height: 100px;background-color: green;margin: 10px;"></div>
+<div id="d3" style="width: 100px;height: 100px;background-color: blue;margin: 10px;"></div>
+<hr/>
+<p>会脱离文档流，不占位置了。</p>
+<input type="button" value="向下滑动" id="b7"/>
+<input type="button" value="向上滑动" id="b8"/>
+<div id="d4" style="background-color: gray;display: none;height: 100px;width: 500px;">
+    <p>display: none; 不显示</p>
+    <p>display: block; 把元素变为块级元素</p>
+    <p>display: inline; 把元素变为内联元素</p>
+</div>
+<hr/>
+<p>改变位置和大小后，会继续留在在文档流。</p>
+<input type="button" value="向左移动1，position必须设值，不能用默认的。" id="b9"/>
+<input type="button" value="向左移动且变大2，position必须设值，不能用默认的。" id="b10"/>
+<input type="button" value="向左移动且变大3，position必须设值，不能用默认的。" id="b11"/>
+<div id="d5" style="width: 100px;height: 100px;background-color: red;margin: 10px;position:relative;"></div>
+<hr/>
+<p>回调函数，执行完动画效果后调用</p>
+<input type="button" value="回调事件" id="b12"/>
+<p id="p2" style="display: none;">小日本</p>
+<hr/>
+<p>暂停动画</p>
+<input type="button" value="向左移动" id="b13"/>
+<input type="button" value="停止" id="b14"/>
+<div id="d6" style="width: 100px;height: 100px;background-color: red;margin: 10px;position: absolute;"></div>
+</body>
+</html>
