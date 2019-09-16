@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="./js/jquery-1.4.1.js"></script>
 </head>
 <body>
 <p>你最喜欢的名人是？</p>
-<input value="1231" readonly="false">
+<input id="name" value="1231" readonly="readonly">
 </body>
 </html>
+<script>
+
+    $(document).ready(function () {
+    /*    $("#name").removeAttr("readonly");*/
+       /* $('#name').attr("readonly",false);*/
+    });
+</script>
