@@ -20,11 +20,16 @@
              */
             $("#b2").click(function () {
                 $.post("/ajax?action=post", {id: 1}, function (data, textStatus) {
-                    alert("请求状态：" + textStatus);
-                    alert("返回数据：" + data);
-                    data = eval("(" + data + ")");
-                    $("#name").val(data.name);
-                    $("#age").val(data.age);
+                    /*
+                        请求成功则返回textStatus的值为success
+                     */
+                    if(textStatus == "success"){
+                        alert("请求状态：" + textStatus);
+                        alert("返回数据：" + data);
+                        data = eval("(" + data + ")");
+                        $("#name").val(data.name);
+                        $("#age").val(data.age);
+                    }
                 });
             });
         });
