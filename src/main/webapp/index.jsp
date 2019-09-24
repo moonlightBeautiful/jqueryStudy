@@ -12,6 +12,7 @@
     <title>hello jquery ajax</title>
 </head>
 <body>
-<a href="./c06ajax&json/demo01.html">跳到ajax去吧</a>
+<a href="./c06ajax&json/ajaxMethod.html">跳到ajaxMethod去吧</a>
+<a href="./c06ajax&json/jsonP.html">跨域去吧json</a>
 </body>
 </html>

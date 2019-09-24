@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨域解决方案-jsonP</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+</head>
+<body>
+<!--<input id="userNumber" value="1">
+<input id="userName" value="张三">-->
+<p>Jsonp(JSON with Padding) 是 json 的一种"使用模式"，可以让网页从别的域名（网站）那获取资料，即跨域读取数据。</p>
+<!-- 先单点登录一下，在请求服务器页面-->
+
+<!-- 第一种 直接在script的src中写。 -->
+<!--<script type="text/javascript"
+        src="http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp?data=[data1:{name:zhangsan,age:13},data2:{name:李四,age:14}]"></script>-->
+
+ 第二种  提交form表单
+<form id="testForm" action="http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp" method="post">
+    <input type="text" readonly="readonly" name="data" value="[data1:{name:zhangsan,age:13},data2:{name:李四,age:14}]">
+    <input type="button" value="提交表单" onclick="submitForm()">
+</form>
+<script>
+    function submitForm() {
+        $("#testForm").submit();
+    }
+</script>
+
+<!--第三种，jsop突然调不通了  -->
+<!--<div id="divCustomers"></div>-->
+<script>
+    /**
+     * getJSON：通过 HTTP GET 请求载入 JSON 数据，在jQuery 1.2 以后的版本，您可以通过使用 JSONP 形式的回调函数来加载其他网域的 JSON 数据
+     *
+     *  */
+    $(document).ready(function () {
+        /**
+         * 跨域，网上例子https://www.runoob.com/json/json-jsonp.html，返回["customername1","customername2"]
+         **/
+        /* $.getJSON("https://www.runoob.com/try/ajax/jsonp.php?jsoncallback=?", function (data) {
+             var html = '<ul>';
+             for (var i = 0; i < data.length; i++) {
+                 html += '<li>' + data[i] + '</li>';
+             }
+             html += '</ul>';
+             $('#divCustomers').html(html);
+         });*/
+
+        var url = "http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp";
+       /* var data = {"www": "wowowo"};*/
+        /*$.getJSON(url/!*, data, function(responseText, statusText, xhr){
+            /!*alert(xhr.status);
+            alert(statusText);
+            alert(responseText);*!/
+        }*!/);*/
+        $.get(url);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>load、get、post、ajax、getJSON学习</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+</head>
+<body>
+<input id="b1" type="button" value="Load加载"/><br/>
+<div id="d1"></div>
+<hr/>
+<input id="b2" type="button" value="Get加载"/><br/>
+姓名：<input type="text" id="name2"/><br/>
+年龄：<input type="text" id="age2"/>
+<hr/>
+<input id="b3" type="button" value="Post加载"/><br/>
+姓名：<input type="text" id="name3"/><br/>
+年龄：<input type="text" id="age3"/>
+<hr/>
+<input id="b4" type="button" value="Ajax加载"/><br/>
+姓名：<input type="text" id="name4"/><br/>
+年龄：<input type="text" id="age4"/>
+<hr/>
+<p>比较 GET 与 POST</p>
+<p>数据传输方式：url中，不在url中。</p>
+<p>后退按钮/刷新：不会重复提交表单数据，表单数据会被重新提交。</p>
+<p>对数据长度的限制：当发送数据时，GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符），无限制。</p>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        /**
+         * load
+         * $(selector)load(url,data,function(response,status,xhr){})：从服务器加载数据，并把返回的数据放入被选元素中。
+         * url 必填。
+         * data 可选。规定连同请求发送到服务器的数据。json格式。
+         * function(response,status,xhr){} 可选。规定当请求完成时运行的函数。
+         *      response - 包含来自请求的结果数据。json格式。eval一下就可以。
+         *      status - 包含请求的状态（"success", "notmodified", "error", "timeout" 或 "parsererror"）
+         *      xhr - 包含 XMLHttpRequest 对象
+         */
+        $("#b1").click(function () {
+            $("#d1").load("/ajax?action=load", {name: "张三", age: 14}, function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    responseTxt = eval("(" + responseTxt + ")");
+                    alert("外部内容加载成功!返回的数据：" + responseTxt.result + " ，xhr.status：" + xhr.status);
+                }
+                if (statusTxt == "error") {
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+                }
+            });
+        });
+
+        /**
+         * get
+         * $.get(url,data,success(response,status,xhr){},dataType)：从指定的资源请求数据，GET请求有长度限制，所以一般用于请求数据。
+         * url 必填。
+         * data    可选。规定连同请求发送到服务器的数据。json格式。
+         * success(response,status,xhr) 可选。规定当请求成功时运行的函数。
+         *      response - 包含来自请求的结果数据。json格式。eval一下就可以。
+         *      status - 包含请求的状态（"success", "notmodified", "error", "timeout" 或 "parsererror"）
+         *      xhr - 包含 XMLHttpRequest 对象
+         * dataType 可选。规定预计的服务器响应的数据类型。默认地，jQuery 将智能判断。
+         *      xml、json、jsonp、script、html、text
+         */
+        $("#b2").click(function () {
+            $.get("/ajax?action=get", {id: 3}, function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    alert("外部内容加载成功!返回的数据：" + responseTxt + " ，xhr.status：" + xhr.status);
+                    //var obj = JSON.parse(responseTxt);
+                    //$("#name1").val(obj.name);
+                    //$("#age1").val(obj.age);
+                    /* responseTxt = eval("(" + responseTxt + ")");*/
+                    //var myJSON  = JSON.stringify(responseTxt); 把json对象转换成json字符串
+                    //alert(myJSON );
+                    $("#name2").val(responseTxt.name);
+                    $("#age2").val(responseTxt.age);
+                }
+                if (statusTxt == "error") {
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+                }
+            });
+        });
+        /**
+         * post
+         * $.post(url,data,success(response,status,xhr){},dataType)：向指定的资源提交要处理的数据，POST 请求没有长度限制。
+         * url 必填。
+         * data    可选。规定连同请求发送到服务器的数据。json格式。
+         * success(response,status,xhr) 可选。规定当请求成功时运行的函数。
+         *      response - 包含来自请求的结果数据。json格式。eval一下就可以。
+         *      status - 包含请求的状态（"success", "notmodified", "error", "timeout" 或 "parsererror"）
+         *      xhr - 包含 XMLHttpRequest 对象
+         * dataType 可选。规定预计的服务器响应的数据类型。默认地，jQuery 将智能判断。
+         *      xml、json、script、html
+         */
+        $("#b3").click(function () {
+            $.post("/ajax?action=post", {id: 4}, function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    alert("外部内容加载成功!返回的数据：" + responseTxt + " ，xhr.status：" + xhr.status);
+                    var obj = JSON.parse(responseTxt);
+                    $("#name3").val(obj.name);
+                    $("#age3").val(obj.age);
+                   /* var myJSON  = JSON.stringify(responseTxt); //把json对象转换成json字符串
+                    alert(myJSON );*/
+                    /*responseTxt = eval("(" + responseTxt + ")");
+                    $("#name3").val(responseTxt.name);
+                    $("#age3").val(responseTxt.age);*/
+                }
+                if (statusTxt == "error") {
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+                }
+            });
+        });
+        /**
+         * ajax
+         * ajax({settings}) 方法通过 HTTP 请求加载远程数据。
+         * type：String，请求方式 ("post" 或 "get")， 默认为 "get"。
+         * url：String，发送请求的地址。
+         * async：Boolean，默认值为true，是否异步请求。
+         * data：String，发送到服务器的数据，必须为 Key/Value 格式，如果多个Key相同，则自动转为{Key:["Value", "Value"]}
+         * dataType：String，预期服务器返回的数据类型，会影响success或者error的第一个参数。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断，一般是text。
+         *      "xml"、"html"、"script"、"json，能转换则转换成json对象，不能转换则无反应"、"jsonp"、"text"
+         * success：Function(response,status,xhr)，请求成功后的回调函数。
+         *    response - 包含来自请求的结果数据。根据 dataType 参数进行处理后的数据。json格式。eval一下就可以。
+         *    status - 包含请求的状态（"success", "notmodified", "error", "timeout" 或 "parsererror"）
+         *    xhr - 包含 XMLHttpRequest 对象
+         * error：Function(xhr,statusText,errorText)，如果请求失败要运行的函数。
+         */
+        $("#b4").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/ajax?action=ajax",
+                async: true,
+                data: {id: 5},
+                dataType: "json",
+                success: function (responseText, statusText, xhr) {
+                   alert("外部内容加载成功!返回的数据age属性：" + responseText.age + "，statusText:" + statusText + " ，xhr.status：" +
+                       xhr.status);
+                },
+                error: function (xhr, statusText, errorText) {
+                    /*alert("Error: " + xhr.status + "，" + xhr.statusText);
+                    alert("Error: " + statusText + ": " + errorText);*/
+                }
+            });
+        });
+    });
+</script>
