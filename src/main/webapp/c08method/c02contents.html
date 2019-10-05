@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>contents() 方法返回所有直接子元素，包含文本节点和注释节点。</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script>
+        $(function () {
+            $("p").contents().wrap("<b/>");
+            alert($("p").contents().size());
+            //返回的元素个数为4个
+        });
+    </script>
+</head>
+<body>
+body (曾祖先节点)<p>Hello <a href="http://myapple.com.cn/">Apple</a>, how are you doing? <!-- asd--></p>
+</body>
+</html>
