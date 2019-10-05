@@ -16,3 +16,4 @@
 <a href="./c06ajax&json/jsonP.html">跨域去吧json</a>
 </body>
 </html>
+

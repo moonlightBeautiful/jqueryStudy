@@ -44,17 +44,18 @@
  <script type="text/javascript" src="./remote.js"></script>-->
 
 <!-- 第二种  提交form表单，用于跳转。这种方式用户相互调用jsp界面吧-->
-<!--<form id="testForm" action="http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp?callback=say" method="post">
-    <input type="text" readonly="readonly" name="data" value="[data1:{name:zhangsan,age:13},data2:{name:李四,age:14}]">
+<form id="testForm" class="pt-form" ui="form"
+      action="http://127.0.0.1:8080/avidm/plm/mpm/test/test.jsp" method="post">
+    <input type="text" readonly="readonly" name="userName" value="liSi">
     <input type="button" value="提交表单" onclick="submitForm()">
 </form>
 <script>
     function submitForm() {
         $("#testForm").submit();
     }
-</script>-->
+</script>
 
-<!--第三种，jquery的jsonp方式  -->
+<!--第三种，jquery的jsonp方式 jsonp默认请求方式为get，即使type:post标明了post请求方式，但是dataType会默认用get请求。本质是script方式加载 -->
 <script>
     /**
      * getJSON：通过 HTTP GET 请求载入 JSON 数据，
@@ -66,7 +67,7 @@
          * 跨域1，$.ajax({})，遇到问题：success不执行
          *      dataType: 'jsonp'时，和getJson一样，success函数只有一个入参
          * */
-        $.ajax({
+        /*$.ajax({
             url: 'http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp',
             type: 'get', //默认就是get
             dataType: 'jsonp',  //jsonP才可以跨域，json不可以跨域
@@ -81,7 +82,7 @@
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(textStatus);
             }
-        });
+        });*/
 
         /* *
          * 跨域2，$.getJSON，

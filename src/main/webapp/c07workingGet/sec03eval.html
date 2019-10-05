@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>eval(string)学习</title>
+</head>
+<body>
+<script>
+    function say(a) {
+        alert(a);
+    }
+
+    var method = "say";
+
+    function saysay(b) {
+
+        var records = b.records;
+        eval(method + "(records)");
+    }
+
+    var obj = {"method": "say", "records": "hello"};
+
+    saysay(obj);
+</script>
+</body>
+</html>
