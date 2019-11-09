@@ -2,17 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>contents() 方法返回所有直接子元素，包含文本节点和注释节点。</title>
+    <title>$("被选元素").contents() 方法返回所有子元素，包含文本节点和注释节点。</title>
     <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
     <script>
         $(function () {
-            $("p").contents().wrap("<b/>");
-            alert($("p").contents().size());
+            alert($("#p1").contents().size());
+
+            $("#p1").contents().filter(function(){
+                console.log(this.nodeType);
+                return this.nodeType != 1;
+            });
+
+            $("#p1").contents().filter(function(){
+                return this.nodeType != 1;
+            }).wrap("<s></s>");
             //返回的元素个数为4个
         });
     </script>
 </head>
 <body>
-body (曾祖先节点)<p>Hello <a href="http://myapple.com.cn/">Apple</a>, how are you doing? <!-- asd--></p>
+<p id="p1">Hello<a href="http://myapple.com.cn/">Apple</a> <a href="http://myapple.com.cn/">Apple</a>.<!-- asd--></p>
+<p>首先，弄清楚什么是元素。元素：标签（标签包含标签属性和文本值）。节点：任何内容都是节点（标签，属性，文本，注释，空格等）</p>
+<p>$("p1").contents()：获得选中元素所有子节点。</p>
+<p>集合.filter(func(){ return boolean})： 返回符合一定条件的元素。</p>
+<p>$("p1")..wrap("<元素></元素>"):每个被选元素放置在指定的 HTML 元素中</p>
+<p> 1	Element	代表元素	Element, Text, Comment, ProcessingInstruction, CDATASection, EntityReference
+    2	Attr	代表属性	Text, EntityReference
+    3	Text	代表元素或属性中的文本内容。	None
+    4	CDATASection	代表文档中的 CDATA 部分（不会由解析器解析的文本）。	None
+    5	EntityReference	代表实体引用。	Element, ProcessingInstruction, Comment, Text, CDATASection, EntityReference
+    6	Entity	代表实体。	Element, ProcessingInstruction, Comment, Text, CDATASection, EntityReference
+    7	ProcessingInstruction	代表处理指令。	None
+    8	Comment	代表注释。	None
+    9	Document	代表整个文档（DOM 树的根节点）。	Element, ProcessingInstruction, Comment, DocumentType
+    10	DocumentType	向为文档定义的实体提供接口	None
+    11	DocumentFragment	代表轻量级的 Document 对象，能够容纳文档的某个部分	Element, ProcessingInstruction, Comment, Text, CDATASection, EntityReference
+    12	Notation	代表 DTD 中声明的符号。	None
+</p>
+
 </body>
 </html>

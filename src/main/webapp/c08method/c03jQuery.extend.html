@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$.extend() 函数用于扩展目标对象的属性。</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script>
+        $(function () {
+            var object1 = {
+                apple: 0,
+                banana: {weight: 52, price: 100},
+                cherry: 97
+            };
+            var object2 = {
+                banana: {price: 200},
+                durian: 100
+            };
+            /*  扩展object1，让他拥有 object2属性 */
+            $.extend(object1, object2);
+            $("#log").append(printObj(object1));
+        });
+
+        function printObj(obj) {
+            var arr = [];
+            $.each(obj, function (key, val) {
+                var next = key + ": ";
+                if ($.isPlainObject(val)) {
+                    next = next + printObj(val);
+                } else {
+                    next = next + val;
+                }
+                arr.push(next);
+            });
+            return "{ " + arr.join(",") + " }";
+        };
+    </script>
+</head>
+<body>
+<div id="log"></div>
+<hr>
+<p>
+    $.extend(目标对象，其他对象...) 函数用于扩展目标对象的属性。如果没有目标对象，则扩展到juqery上。
+</p>
+
+<p>
+    纯粹的对象：就是通过 { }、new Object()、Object.create(null) 创建的对象。
+</p>
+<p>
+    $.isPlainObject(val)用于判断指定参数是否是一个纯粹的对象，返回值问boolean。
+</p>
+<p>
+    数组.join("str")：指定str连接数组每一项。
+</p>
+</body>
+</html>

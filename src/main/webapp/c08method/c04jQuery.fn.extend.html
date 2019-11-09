@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$.fn.extend() 函数用于扩展jquery的对象上。</title>
+    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script>
+        $(function () {
+            $.extend({
+                myMin: function (a, b) {
+                    return a < b ? a : b;
+                },
+                myMax: function (a, b) {
+                    return a > b ? a : b;
+                }
+            });
+            console.log($.myMin(2, 3)); //  2
+            console.log($.myMax(4, 5)); //  5
+            $.fn.extend({
+                myAlert: function () {
+                    alert("myAlert" + $(this).val());
+                }
+            });
+            $("#input1").myAlert();
+        });
+    </script>
+</head>
+<body>
+<input id="input1" type="text" value="wohenhao">
+<p id="p1">
+    虽然 JavaScript 没有明确的类的概念，但是用类来理解它，会更方便。jQuery便是一个封装得非常好的类，比如我们用 语句$("#div1")会生成一个 jQuery类的实例。
+</p>
+<p>
+    jQuery.extend(object),为jQuery类添加方法或者属性，可以理解为添加静态方法或者属性。
+</p>
+<p>
+    jQuery.fn.extend(object),为jQuery对象（prototype）添加方法或者属性。<br/>
+    jQuery.fn.extend({自己的方法:function(){}}) = jQuery.prototype.extend({自己的方法:function(){}}) = $.fn.自己的方法()=function(){}
+</p>
+</body>
+</html>
