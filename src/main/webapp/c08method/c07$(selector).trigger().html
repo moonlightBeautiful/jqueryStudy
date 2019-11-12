@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$(selector).trigger(event,[param1,param2,...])：触发被选元素指定的事件</title>
+    <script type="text/javascript" src="../jquery-1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<input type="text" name="FirstName" value="Hello World"/>
+<br/>
+<button>激活 input 域的 select 事件</button>
+
+<p>
+    $(selector).trigger(event,[param1,param2,...])：触发被选元素指定的事件<br/>
+    第一个参数是事件，第二个参数是传入到事件处理函数的参数...<br/>
+    要为被选元素事件指定处理函数。
+</p>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("input").select(function () {
+            $("input").after("文本被选中！");
+        });
+        $("button").click(function () {
+            $("input").trigger("select");
+        });
+    });
+</script>
