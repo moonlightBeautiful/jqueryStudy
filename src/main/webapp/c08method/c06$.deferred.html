@@ -3,63 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>$.Deferred()：创建一个新的 Deferred（延迟）对象，也是回调函数解决方案。</title>
-    <script type="text/javascript" src="../jquery-1.7.2/jquery-v1.7.2.js"></script>
+    <script type="text/javascript" src="../jquery-1.11.1/jquery.js"></script>
     <script>
         $(function () {
             /**
-             * 定义一个变量， 在a函数（异步）中为它赋值 ，在b函数中调用它 。
+             * 定义一个全局变量，
+             * 在a函数（异步）中为它赋值 ，在b函数中调用它 。
              * b函数没有等待a函数（异步）赋值成功便执行了，导致console出的值是current的初始值。
              */
             /*var current = 0;
-
             function a() {
                 setTimeout(function () {
                     current = 6;
                 }, 500);
             }
-
             function b() {
                 a();
                 alert("current:" + current);
             }
-
             b(); // 0*/
 
             /**
-             * 解决方案1：把b函数中a函数（异步）外的操作封装成回调函数，a函数（异步）执行完后执行回调函数
+             * 解决方案1：把b函数中js脚本放在a函数（异步）之后执行，也就是封装成回调函数在a函数（异步）执行完后执行
              */
-            /* var current2 = 0;
+            /*var current2 = 0;
 
-             function a2(callBack) {
-                 setTimeout(function () {
-                     current2 = 6;
-                     callBack();
-                 }, 500);
-             }
+            function a2() {
+                setTimeout(function () {
+                    current2 = 6;
+                    callBack();
+                }, 500);
+            }
 
-             function callBack() {
-                 alert("current2:" + current2);
-                 console.log(current2);
-             }
+            function callBack() {
+                alert("current2:" + current2);
+            }
 
-             function b2() {
-                 a2(callBack);
-             }
+            function b2() {
+                a2();
+            }
 
-             b2(); // 6*/
+            b2(); // 6*/
 
             /**
              * 如果有更多的函数在b函数之前对current 赋值，那么....让我们的代码变的复杂、可读性很差。
-             * a2(callBack1(callBack2(callBack3(...))));
              */
 
             /**
              * 解决方案2：$.Deferred()，jQuery 1.5中引入的。它可以在回调队列中注册多个回调函数，调用回调队列，并中继任何同步或异步函数的成功或失败状态。
              */
-            /*var deferred = $.Deferred();     //生成一个deferred对象。
-            var wait = function (dfd) {    //定义函数 并传入deferred对象。
+            var deferred = $.Deferred();     //生成一个deferred对象。代表着延迟事件的状态
+            var wait = function (deferred) {    //定义函数 并传入deferred对象时。
                 alert("执行了");    //函数体
-                dfd.resolve();   //手动改变deferred对象的运行状态从“未完成”到"已完成"，立即触发done()方法。
+                deferred.resolve();   //手动改变deferred对象的运行状态从“未完成”到"已完成"，立即触发done()方法。
             };
             $.when(wait(deferred))    //$.when可以为多个操作指定同一个回调函数 以逗号分隔开
                 .done(function () {
@@ -69,37 +65,39 @@
                     alert("失败");
                 })   //指定操作失败时的回调函数
                 .then(function () {
-                    alert("成功失败");
-                });   //done(),fail(),progress()操作成功或失败执行的回调函数*/
+                    alert("成功失败都执行");
+                });   //done(),fail(),progress()操作成功或失败执行的回调函数
 
-            /* var deferred = $.Deferred();
-             deferred
-                 .done(function (data) {
-                     alert(data);
-                 })
-                 .fail(function (data) {
-                     alert(data);
-                 });
-             deferred.resolve("成功了");
-             deferred.reject("失败了"); //不会被执行，因为已经成功了*/
+            /*var deferred = $.Deferred();
+            deferred
+                .done(function (data) {
+                    alert(data);
+                })
+                .fail(function (data) {
+                    alert(data);
+                });
+            deferred.resolve("成功了");
+            deferred.reject("失败了"); //不会被执行，因为已经成功了*/
         });
     </script>
 </head>
 <body>
-<p>JavaScript里面的Promise思想：<br/>
+<p>
+    Promise思想：<br/>
     当一件事发生的时候(when)，我们给出一个承诺(promise)，承诺中规定：<br/>
-    &nbsp;&nbsp;如果成功了(resolved)就做一件事(done)，<br/>
-    &nbsp;&nbsp;如果失败了(rejected)就做另外一件事(fail)，<br/>
-    &nbsp;&nbsp;如果这件事在发展过程中有了新的进展(then)，就结合老的promise给出一个新的promise（then的返回值也是一个promise，<b>但原始的promise仍然有效</b>）。
+    &nbsp;&nbsp;如果成功了(deferred.resolved)就做一件事(done)，<br/>
+    &nbsp;&nbsp;如果失败了(deferred.rejected)就做另外一件事(fail)，<br/>
+    &nbsp;&nbsp;如果这件事在发展过程中有了新的进展(deferred.then)，就结合老的promise给出一个新的promise（then的返回值也是一个promise，<b>但原始的promise仍然有效</b>）。
 </p>
 <p>
-    所以，Promise思想其实就是：<br/>
-    when(deferreds[一个或者多个延迟对象...)。[说明：如果都成功了，才会执行回调函数]<br/>
+    所以，JavaScript里面的Promise思想：<br/>
+    when(deferreds[一个或者多个延迟对象...])。[说明：deferreds代表会发生的那件事的状态，如果都成功了，才会执行回调函数]<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;.done([function(data){}])...可连续几个done，按顺序执行。[说明：一个事件可绑定多个回调]<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;.fail([function(data){}])...可连续几个fail，按顺序执行。[说明：一个事件可绑定多个回调]<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;.then(done,fail);<br/>
 
 </p>
+<p>deferred对象代表事情的进展。</p>
 <p>deferred对象有三种执行状态----未完成(unfulfilled)、已完成(resolved)和已失败(rejected)。</p>
 如果执行状态是"已完成"（resolved）,deferred对象立刻调用done()方法指定的回调函数。
 如果执行状态是"已失败"（fail），deferred对象立刻调用fail()方法指定的回调函数。
@@ -108,9 +106,9 @@
 <p>创建一个延迟对象。var deferred = $.Deferred();。将deferred对象变成事件函数的内部对象更好。</p>
 <p>定义延迟对象的事件。<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;deferred<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.done(function(data){ })<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.fail(function(data){ })<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(function(data){ },function(data){ })
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  .done(function(data){ })<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.fail(function(data){ })<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(function(data){ },function(data){ })
 </p>
 <p>在事件中调用延迟对象的完成或拒绝函数。<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;function(){deferred.resolve(data)}<br/>
@@ -121,6 +119,7 @@ deferred对象使用promise()方法，将产生一个promise对象，promise对�
 <p>jQuery1.5.0版本之后，$.ajax默认返回的数据类型就是deferred对象。之前是XHR对象</p>
 <ol>其他用法：
     <li>$.Deferred([函数名]) 生成一个deferred对象，如果入参函数名，则指定函数的入参默认是deferred对象，即function 函数名(deferred对象){}</li>
+    <li>$.when(deferreds...) 为多个deferred对象指定相同的回调函数，只有全部deferred对象都成功才会调用done，有一个失败就回调用fail。</li>
     <li>deferred.promise() 返回Deferred Promise对象，只能挂done、fail、failthen等函数，不能改变deferred对象状态。</li>
     <li>deferred.done([args...]) 当Deferred对象被resolved时，将会调用的函数，可以使用resolve传递过来的参数。</li>
     <li>deferred.fail([args...]) 当Deferred对象被rejected时，将会调用的函数，可以使用reject传递过来的参数。</li>
@@ -129,7 +128,6 @@ deferred对象使用promise()方法，将产生一个promise对象，promise对�
     <li>deferred.reject([args...]) Deferred对象状态变成拒绝。</li>
     <li>deferred.isRejected() 测定Deferred对象是否已被rejected。</li>
     <li>deferred.isResolved() 测定Deferred对象是否已被resolved。</li>
-    <li>$.when(deferreds...) 为多个deferred对象指定相同的回调函数，只有多个多个deferred对象都成功才会调用done，有一个失败就回调用fail。</li>
     <li>deferred.always(function(data){ }) 当Deferred对象被resolved或rejected时，将会调用的函数。</li>
 
 
