@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$.extend(目标对象obj，源对象obj1，源对象obj2...)：用于把源对象方法和属性扩展到目标对象上。</title>
+    <script type="text/javascript" src="../jquery-1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="log">
+
+</div>
+
+<hr>
+<ul>$.extend(目标对象，其他源对象...)
+    <li>简介：用于把源对象方法和属性扩展到目标对象上，只有一个入参，则扩展到jquery上。Jquery是类，$（“选择器”）是对象。</li>
+    <li>简单的讲：就是继承。</li>
+    <li>纯粹的对象：就是通过 { }、new Object()、Object.create(null) 创建的对象。</li>
+    <li>$.isPlainObject(val)：用于判断指定参数是否是一个纯粹的对象，返回值问boolean。</li>
+    <li>数组对象.join("str")：指定str连接数组每一项，默认是逗号，。</li>
+    <li>$(function(){  }) 是  $(document).ready(function(){  })的简写，页面中所有内容加载完成才执行。相当于window.onload = function(){ }</li>
+    <li>DOM是什么？DOM就是一个html页面的标签树，成对不嫌。DOM加载完成了指页面所有的html标签（包括图片等）都加载完了，即浏览器已经响应完了，全部展现到浏览器界面上了。</li>
+</ul>
+</body>
+</html>
+<script>
+    $(function () {
+        var object1 = {
+            apple: 0,
+            banana: {weight: 52, price: 100},
+            cherry: 97,
+            method1:function () {
+                alert(111);
+            }
+        };
+        var object2 = {
+            banana: {price: '新覆盖'},
+            durian: '新'
+        };
+        /*  扩展object1，让他拥有 object2属性 */
+        $.extend(object1, object2);
+        $("#log").append(printObj(object1));
+    });
+
+    function printObj(obj) {
+        var arr = [];
+        $.each(obj, function (key, val) {
+            var next = key + ": ";
+            if ($.isPlainObject(val)) {
+                next = next + printObj(val);
+            } else {
+                next = next + val;
+            }
+            arr.push(next);
+        });
+        return "{ " + arr.join(",") + " }";
+    };
+</script>
