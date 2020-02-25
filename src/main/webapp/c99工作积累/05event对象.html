@@ -6,22 +6,19 @@
     <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
 </head>
 <body>
-<select id="mySelector">
-    <option value="0"></option>
-    <option value="1" selected>第一个</option>
-    <option value="2">第二个</option>
-    <option value="3">第三个</option>
-</select>
+
 
 <p>
-    简介：对select的操作。<br>
-    操作：选中项的value。$("#mySelector").val()<br>
-    操作：所有项的text数组。$("#mySelector").text()<br>
-    操作：选中项的text。$("#mySelector option:selected").text()<br>
-    操作：所有项的jquery对象。$("option","#mySelector")<br>
-    操作：选中某一项。$(element).attr("selected",true);<br>
-    操作：移除选中某一项。$(element).removeAttr("selected");<br>
-
+    简介：jQuery在遵循W3C规范的情况下做了统一封装。<br>
+    如何拿到当前事件的事件对象： 直接在事件的函数内部就可以访问到，$("#btn").click(function(e){ console.log(e.type); });<br>
+    事件对象属性：<br>
+    1.type：事件类型<br>
+    2.target：触发事件的 DOM 元素<br>
+    3.data：事件的额外数据<br>
+    4.timeStamp：从 1970 年 1 月 1 日到事件被触发时的毫秒数<br>
+    5.which：哪个键盘键或鼠标按钮触发的事件，每个键或者鼠标都有数字。<br>
+    事件对象常用的方法： <br>
+    1.preventDefault()阻止默认行为。<br>
 </p>
 </body>
 </html>

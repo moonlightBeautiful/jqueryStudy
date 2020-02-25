@@ -8,7 +8,8 @@
 	$(document).ready(function(){
 		// alert("文档加载完毕");
 		
-		$("#zs").click(function(){
+		$("#zs").click(function(a){
+            alert(a.type);
 			$("#p1").html("<font color=red>张三被点了</font>");
 		});
 		
@@ -23,7 +24,7 @@
 		});
 		
 		$("#t1").blur(function(){
-			$("#t1").val("失去焦点");
+            $("#t1").val("失去焦点");
 		});
 		
 		$("#d1").mouseover(function(){
