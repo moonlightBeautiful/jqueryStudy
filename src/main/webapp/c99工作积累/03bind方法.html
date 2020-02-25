@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bind() 方法学习</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+</head>
+<body>
+<p>This is a paragraph.</p>
+<button>请点击这里</button>
+<p>
+    简介：bind() 方法为被选元素添加一个或多个事件处理程序，并规定事件发生时运行的函数。<br>
+    语法：$(selector).bind(event,data,function)。<br>
+    添加事件：$(selector).bind(event,data,function)。或者：$(selector).event(function)。<br>
+    常用事件：
+        blur()失去焦点事件、
+        focus()获得焦点事件、、
+        click()单击事件、
+        dblclick()双击事件、
+        change()元素的值改变事件（仅适用于表单字段）、
+        mouseover()标指针位于元素上方时事件
+        mouseout()标指针离开元素上方时事件
+        select()当 textarea 或文本类型的 input 元素中的文本被选择（标记）时，会发生 select 事件
+        submit()当提交表单时，会发生 submit 事件。
+        keydown()键按下的过程
+        keypress()键被按下，和keydown的区别是，支持的键少。
+        keyup()键被松开
+        trigger()方法触发被选元素上指定的事件以及事件的默认行为（比如表单提交）。
+    <br>
+</p>
+
+</body>
+</html>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            $("button").bind("click", function () {
+                $("p").slideToggle();
+            });
+        });
+    });
+</script>

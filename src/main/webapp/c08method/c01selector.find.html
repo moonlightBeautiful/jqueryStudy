@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$("被选元素").find("选择器表达式") 方法返回被选元素的后代元素</title>
+    <script type="text/javascript" src="../jquery-1.11.1/jquery.min.js"></script>
+    <style>
+        body * {
+            display: block;
+            border: 2px solid lightgrey;
+            color: gray;
+            padding: 5px;
+            margin: 15px;
+        }
+    </style>
+    <script>
+        $(function () {
+            //$("html").find("*").css({"color": "red"});
+            $("*","html").css({"color": "red"});
+            /* $("html").find("span").css({"color": "green"});*/
+        });
+    </script>
+</head>
+<body>body
+<div class="div1" style="width:500px;">div
+    <ul>ul
+        <li>li
+            <span>span</span>
+        </li>
+    </ul>
+</div>
+<br><br><br><br><br>
+<div style="width:500px;">
+    <p>$("被选元素").find("选择器表达式") 方法返回被选元素的后代元素。</p>
+    <p>也可以写成：$("选择器表达式","被选元素")。[$(children表达式,parents)， 这样的语法，是从parents里面选出children]</p>
+</div>
+</body>
+</html>

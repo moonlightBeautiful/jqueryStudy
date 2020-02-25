@@ -1,0 +1,14 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>function对象属性</title>
+</head>
+<body>
+<script type="text/javascript">
+    var sayFunc = new Function("name", "age", "alert(name+'今年'+age+'岁了')");
+    // sayFunc("李四",4);
+    alert("sayFunc方法对象的方法参数个数：" + sayFunc.length);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deferred（延迟）对象，回调函数解决方案，也就是"延迟"到未来某个点再执行。</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+    <script>
+        $(function () {
+            /**
+             * 定义一个全局变量current。
+             * 在a函数（异步）中为current赋值 ，在b函数中调用current。
+             * 执行结果：b函数没有等待a函数（异步）执行完便执行了，导致b函数使用的全局变量current为初始值。
+             */
+            /*var current = '初始值';
+
+            function a() {
+                setTimeout(function () {
+                    current = '修改值';
+                }, 500);
+            }
+
+            function b() {
+                a();
+                alert("current:" + current);
+            }
+
+            b();*/
+
+            /**
+             * 解决方案1：封装回调函数，在a函数（异步）执行完后执行回调函数。
+             * 缺点：如果有很多的回调函数，则可读性就很差。
+             */
+            /*var current2 = "初始值";
+
+            function a2() {
+                setTimeout(function () {
+                    current2 = "修改值";
+                    callBack();
+                }, 500);
+            }
+
+            function callBack() {
+                alert("回调函数current2:" + current2);
+            }
+
+            function b2() {
+                a2();
+            }
+
+            b2();*/
+
+
+            /**
+             * 解决方案2：使用Deferred延迟对象。可以在回调队列中注册多个回调函数，调用回调队列。
+             */
+            /**
+             * 普通例子
+             */
+            /*var dtd = $.Deferred();
+
+            function wait(dtd) {
+                function tasks() {
+                    alert("执行完毕！");
+                    dtd.resolve("哈哈，成功了！");
+                    //dtd.reject();
+                };
+                setTimeout(tasks, 2000);
+                return dtd;
+            };
+
+            $.when(wait(dtd))
+                .done(function (data) {
+                    alert(data);
+                })
+                .fail(function () {
+                    alert("哈哈，执行失败了！！");
+                });*/
+            /**
+             * 错误例子：执行状态被外部改变
+             */
+            /*var dtd = $.Deferred();
+
+            function wait(dtd) {
+                function tasks() {
+                    alert("执行完毕！");
+                    dtd.resolve("哈哈，成功了！");
+                    //dtd.reject();
+                };
+                setTimeout(tasks, 2000);
+                return dtd;
+            };
+
+            $.when(wait(dtd))
+                .done(function (data) {
+                    alert(data);
+                })
+                .fail(function () {
+                    alert("哈哈，执行失败了！！");
+                });
+            dtd.resolve();*/
+            /**
+             *  防止执行状态被外部改变的方法1：promise一般写法
+             */
+
+            /* var dtd = $.Deferred();
+             var wait = function (dtd) {
+                 function tasks() {
+                     alert("执行完毕！");
+                     dtd.resolve("哈哈，成功了！");
+                     //dtd.reject();
+                 };
+                 setTimeout(tasks, 2000);
+                 return dtd.promise(); // 返回promise对象
+             };
+             var p = wait(dtd); // 新建一个d对象，改为对这个对象进行操作
+             $.when(wait(dtd))
+                 .done(function () {
+                     alert("哈哈，成功了！");
+                 })
+                 .fail(function () {
+                     alert("出错啦！");
+                 });
+             p.resolve(); // 此时，这个语句是无效的*/
+            /**
+             * 防止执行状态被外部改变的方法1：promise更好的写法，将dtd对象变成wait(）函数的内部对象
+             */
+
+            function wait() {
+                var dtd = $.Deferred(); //在函数内部，新建一个Deferred对象
+                var tasks = function () {
+                    alert("执行完毕！");
+                    //dtd.resolve(); // 改变Deferred对象的执行状态
+                    dtd.reject(); // 改变Deferred对象的执行状态
+                };
+                setTimeout(tasks, 2000);
+                return dtd.promise(); // 返回promise对象
+            };
+            $.when(wait())
+                .then(function () {
+                    alert("then");
+                });
+            /**
+             * 防止执行状态被外部改变的方法2：使用$.Deferred(func)
+             */
+            /* function wait(dtd) {
+                 var tasks = function () {
+                     alert("执行完毕！");
+                     dtd.resolve(); // 改变Deferred对象的执行状态
+                 };
+                 setTimeout(tasks, 3000);
+             };
+             $.Deferred(wait)
+                 .done(function () {
+                     alert("哈哈，成功了！");
+                 })
+                 .fail(function () {
+                     alert("出错啦！");
+                 }).then(function () {alert("then1");}, function () {alert("then2");});*/
+        });
+    </script>
+</head>
+<body>
+<p>1.创建一个延迟对象（事情的进展）：var deferred = $.Deferred();</p>
+<p>deferred有三种执行状态----未完成(unfulfilled)、已完成(resolved)和已失败(rejected)。</p>
+<p>2.定义延迟对象的成功、失败函数：<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;deferred<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .done(function(data){ })<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.fail(function(data){ });
+</p>
+<p>3.在延迟事件中判断延迟对象失败或者成功，调用延迟对象的成功、失败函数：<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;function(){deferred.resolve(data) 或者 deferred.reject(data)}<br/>
+</p>
+deferred对象使用promise()方法，将产生一个promise对象，promise对象可以挂done和fail函数，但是resolve和reject操作无效，还得是用deferred对象来完成或者拒绝。
+<p>jQuery1.5.0版本之后，$.ajax默认返回的数据类型就是deferred对象，done()相当于success方法，fail()相当于error方法。之前是XHR对象</p>
+<ol>其他用法：
+    <li>$.Deferred([函数名])：生成一个deferred对象。如果入参函数名，则函数的入参默认是生成的deferred对象。</li>
+    <li>$.when(deferreds或者promises或者返回deferred的函数s或者返回promise的函数s)
+        为多个deferred对象指定相同的回调函数。只有全部deferred对象都成功(无错误执行完默认为成功)才会调用done，有一个失败就回调用fail。
+    </li>
+    <li>.done(func([args...]){}) Deferred对象成功resolved后，将会调用的函数。</li>
+    <li>.fail(func([args...]){}) Deferred对象失败rejected后，将会调用的函数。</li>
+    <li>.then([[done],[fail]]) 有时为了省事，可以把done()和fail()合在一起写,可以和.done或者.fail同时存在，都会执行，按顺序。</li>
+    <li>deferred.resolve([args...]) Deferred对象状态变成完成。</li>
+    <li>deferred.reject([args...]) Deferred对象状态变成拒绝。</li>
+    <li>deferred.promise()
+        在原来的deferred对象上一个promise对象。promise对象只能执行与改变deferred状态无关的方法（比如done()方法和fail()方法），不能执行与改变deferred状态有关的方法（比如resolve()方法和reject()方法）。
+    </li>
+    <li>deferred.progress() Deferred对象生成正在执行中的进度通知时, 将会调用的函数。</li>
+
+
+    <li>下面很少用到：</li>
+    <li>deferred.isRejected() 测定Deferred对象是否已被rejected。</li>
+    <li>deferred.isResolved() 测定Deferred对象是否已被resolved。</li>
+    <li>deferred.always(function(data){ }) 当Deferred对象被resolved或rejected时，将会调用的函数。</li>
+    <li>deferred.catch() 当Deferred对象被rejected时，将会调用的函数。</li>
+    <li>deferred.notify() 根据给定的 args参数 调用Deferred对象上进行中的回调</li>
+    <li>deferred.notifyWith() 根据给定的文本和args参数 调用Deferred对象上进行中的回调</li>
+    <li>deferred.pipe() 用用于过滤 and/or 链式Deferred对象的工具方法。</li>
+    <li>deferred.rejectWith() 根据给定的文本和args参数 Reject Deferred对象并调用所有失败回调函数。</li>
+    <li>deferred.resolveWith() 根据给定的文本和args参数 Resolve Deferred对象并调用所有成功回调函数。</li>
+    <li>deferred.state() 测定Deferred对象的当前状态。</li>
+
+</ol>
+
+</body>
+</html>

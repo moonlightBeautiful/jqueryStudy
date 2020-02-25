@@ -18,13 +18,17 @@
 
             // 其他选择器
             // $("p.c1").css("background-color","red");
-            // $("ul li:first").css("background-color","red");  //交
-            $("ul li:last").css("background-color", "red"); //后代选择器
+            // $("ul li:first").css("background-color","red");  //后代选择器+顺序
+            $("ul li:last").css("background-color", "red"); //后代选择器+顺序
+
             /*
             1.1交集选择器：标记.类{}
             1.2并集选择器：基本选择器,基本选择器{}
+            $('div , li')才是找所有的div和li，之间不存在父子关系。
             1.3后代选择器：基本选择器 空格 基本选择器{}
+            $('div li') 是找div里面所有li，包括子级，孙子级，总之就是div里面所有li，不管有几层关系。
             1.4子选择器：基本选择器 > 基本选择器{}
+            $('div>li') = $('div','li')
             1.5相邻弟弟选择器：基本选择器哥哥 + 基本选择器弟弟 {}
             */
         });

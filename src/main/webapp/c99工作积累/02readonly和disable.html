@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>readonly和disabled的学习</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+</head>
+<body>
+<input id="input1" value="只读">
+
+
+<p>
+    readonly和Disabled是用在表单中的两个属性，它们都能够做到使用户不能够更改表单域中的内容。但是它们之间有着微小的差别：<br>
+    readonly只对表单元素input(text / password)和textarea有效。<br>
+    disabled对所有的表单元素都有效，包括select, radio, checkbox, button等。<br>
+    表单元素在使用了disabled后，当我们将表单以POST或GET的方式提交的话，这个元素的值不会被传递出去。而readonly会将该值传递出去。<br>
+    readonly和disabled作为元素本身属性，不是用过jquery操作，只要readonly存在，则就不可修改。<br>
+    jquery操作：readonly=true、readonly="任意字符串"，情况下会使文本框不可修改。readonly不存在和readonly=false,文本框可修改。<br>
+    jquery操作：disabled=true、disabled="任意字符串"，情况下会使文本框不可修改。disabled不存在和disabled=false,文本框可修改。<br>
+</p>
+
+</body>
+</html>
+<script>
+    $(function () {
+        //readonly不可修改操作
+        // $('#input1').attr("readonly","false");
+        //$('#input1').attr("readonly","");
+        //$('#input1').attr("readonly",true);
+        //readonly可修改操作
+        // $('#input1').attr("readonly",false);
+        // $('#input1').removeAttr("readonly");
+        //disabled不可修改操作
+        //$('#input1').attr("disabled","false");
+        //$('#input1').attr("disabled","");
+        //$('#input1').attr("disabled",true);
+        //disabled可修改操作
+        //$('#input1').attr("disabled",false);
+        //$('#input1').removeAttr("disabled");
+    });
+</script>

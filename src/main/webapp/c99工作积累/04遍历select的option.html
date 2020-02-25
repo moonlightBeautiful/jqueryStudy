@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04遍历select的option</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+</head>
+<body>
+<select id="mySelector">
+    <option value="1">第一个</option>
+    <option value="2" selected>第二个</option>
+    <option value="3">第三个</option>
+</select>
+</body>
+</html>
+<script>
+    $(function () {
+        //alert($("#mySelector").val());  //选中选项的文本值
+        //alert($("#mySelector").text());  //所有选项的文本值
+        //alert($("option","#mySelector").length); //获取所有选项jq对象
+        $("option", "#mySelector").each(function (index, element) {
+ //           alert("位置：" + index + "。元素value：" + $(element).val() + "。元素text：" + $(element).text() +"。元素selected："+$(element).attr("selected"));
+            if ($(element).val() == 3) {
+                $(element).attr("selected",true);
+            }else{
+               /* alert(JSON.stringify( $(element).removeAttr("selected")));*/
+                $(element).removeAttr("selected")  //没有要移除的属性，也不会报错
+            }
+        });
+    });
+</script>
