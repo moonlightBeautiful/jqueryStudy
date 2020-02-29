@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>load</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+</head>
+<body>
+<input id="b1" type="button" value="Load加载"/><br/>
+<div id="d1"></div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#b1").click(function () {
+            $("#d1").load(
+                "/ajaxStudy?action=load",
+                {name: "张三", age: 14},
+                function (responseTxt, statusTxt, xhr) {
+                    if (statusTxt == "success") {
+                        responseTxt = eval("(" + responseTxt + ")");
+                        alert("外部内容加载成功!返回的数据：" + responseTxt.result + " ，xhr.status：" + xhr.status);
+                    }
+                    if (statusTxt == "error") {
+                        alert("Error: " + xhr.status + ": " + xhr.statusText);
+                    }
+                });
+        });
+    });
+</script>

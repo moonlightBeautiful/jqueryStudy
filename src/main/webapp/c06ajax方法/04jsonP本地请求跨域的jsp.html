@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨域解决方案-jsonP</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+</head>
+<body>
+<!-- 第一种 直接在script的src请求jsp页面，请求的js页面输出在回调函数中处理收到的数据 -->
+<!--<script type="text/javascript" src="http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp?callback=say&userName=zhangsan"></script>
+<script>
+    function say() {
+        alert("被远程跨域页面调用，方式1");
+    }
+</script>-->
+
+<!-- 第二种  直接跳转到跨域的jsp -->
+<form action="http://127.0.0.1:8080/avidm/plm/mpm/test/test.jsp" method="post">
+    <input type="text" readonly="readonly" name="userName" value="liSi">
+    <input type="submit" value="提交表单" ">
+</form>
+
+<!--第三种，jquery的jsonp方式 ，本质是script方式加载 -->
+<script>
+    $(document).ready(function () {
+        /*$.ajax({
+            url: 'http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp',
+            type: 'get', //默认就是get
+            dataType: 'jsonp',  //jsonP才可以跨域，json不可以跨域
+            callback:'callback',  //可以不写，默认传入参数名callback
+            //jsonpCallback:'success_jsonpCallback',  //可以不写，默认jsonp+随机生成的数字，反正最后执行的是success方法，会把数据传到success方法中执行
+            data: {
+                userName: 'zhangSan'
+            },
+            success: function (responseObj) {
+                alert(responseObj.name1);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });*/
+
+        /* *
+         * 遇到问题：无法调通，必须需要在请求url后面添加个键值对
+         *      一般key使用callback，也可以是其他的。
+         *      一般value使用？，也可以指定
+         **/
+       /* var url = "http://10.0.102.142:8080/avidm/plm/mpm/test/test.jsp?callback=?";
+        var data = {"userName": "zhangSan"};
+        $.getJSON(
+            url,
+            data,
+            function (responseObj) {
+                alert(responseObj.name1);
+            }
+        );*/
+    });
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             /**
@@ -26,13 +26,17 @@
             $("#b4").click(function () {
                 $("#d1").fadeIn();
             });
-
+            /**
+             * 淡入和淡出切换
+             */
             $("#b5").click(function () {
                 // $("#d1").fadeToggle();
                 // $("#d1").fadeToggle("slow"); 可以有参数 fast slow
                 $("#d1").fadeToggle(10000); //几毫秒内切换
             });
-
+            /**
+             * 改变透明度
+             */
             $("#b6").click(function () {
                 $("#d1").fadeTo("slow", 0.1);    //速度 透明度
                 $("#d2").fadeTo("slow", 0.5);
@@ -40,7 +44,7 @@
             });
 
             /**
-             * 向下展开和向上折叠
+             * 向下滑动展开和向上滑动关闭
              */
             $("#b7").click(function () {
                 $("#d4").slideDown("slow");
@@ -51,7 +55,7 @@
             });
 
             /**
-             * 自定义动画效果
+             * 自定义动画效果 向左滑动
              */
             $("#b9").click(function () {
                 $("#d5").animate({left: '500px'}, 'slow');
@@ -75,14 +79,6 @@
                 }, 'slow');
             });
             /**
-             * 回调函数
-             */
-            $("#b12").click(function () {
-                $("#p2").show(function () {
-                    alert("小日本出来了！");
-                });
-            });
-            /**
              * 暂停动画
              */
             $("#b13").click(function () {
@@ -91,6 +87,15 @@
 
             $("#b14").click(function () {
                 $("#d6").stop();
+            });
+
+            /**
+             * 回调函数
+             */
+            $("#b12").click(function () {
+                $("#p2").show(function () {
+                    alert("小日本出来了！");
+                });
             });
         });
     </script>

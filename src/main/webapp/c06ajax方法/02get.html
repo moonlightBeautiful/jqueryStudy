@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>get</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+</head>
+<body>
+<input id="b2" type="button" value="Get加载"/><br/>
+姓名：<input type="text" id="name2"/><br/>
+年龄：<input type="text" id="age2"/>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#b2").click(function () {
+            $.get("/ajax?action=get", {id: 3}, function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    alert("外部内容加载成功!返回的数据：" + responseTxt + " ，xhr.status：" + xhr.status);
+                    //var obj = JSON.parse(responseTxt);
+                    //$("#name1").val(obj.name);
+                    //$("#age1").val(obj.age);
+                    /* responseTxt = eval("(" + responseTxt + ")");*/
+                    //var myJSON  = JSON.stringify(responseTxt); 把json对象转换成json字符串
+                    //alert(myJSON );
+                    $("#name2").val(responseTxt.name);
+                    $("#age2").val(responseTxt.age);
+                }
+                if (statusTxt == "error") {
+                    alert("Error: " + xhr.status + ": " + xhr.statusText);
+                }
+            });
+        });
+    });
+</script>

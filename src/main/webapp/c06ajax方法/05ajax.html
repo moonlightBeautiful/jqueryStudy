@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ajax</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+</head>
+<body>
+<input id="b4" type="button" value="Ajax加载"/><br/>
+姓名：<input type="text" id="name4"/><br/>
+年龄：<input type="text" id="age4"/>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#b4").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/ajax?action=ajax",
+                async: true,
+                data: {id: 5},
+                dataType: "json",
+                success: function (responseText, statusText, xhr) {
+                    alert("外部内容加载成功!返回的数据age属性：" + responseText.age + "，statusText:" + statusText + " ，xhr.status：" +
+                        xhr.status);
+                },
+                error: function (xhr, statusText, errorText) {
+                    /*alert("Error: " + xhr.status + "，" + xhr.statusText);
+                    alert("Error: " + statusText + ": " + errorText);*/
+                }
+            });
+        });
+    });
+</script>

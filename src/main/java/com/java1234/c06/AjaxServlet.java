@@ -1,4 +1,4 @@
-package com.java1234.web;
+package com.java1234.c06;
 
 import com.alibaba.fastjson.JSON;
 
@@ -39,13 +39,10 @@ public class AjaxServlet extends HttpServlet {
         }
     }
 
-    private void load(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void load(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=utf-8");
-        String name = request.getParameter("name");
-        String age = request.getParameter("age");
-        System.out.println("接收到前台数据name:" + name);
-        System.out.println("接收到前台数据age:" + age);
+        System.out.println("接收到前台数据name:" + request.getParameter("name"));
+        System.out.println("接收到前台数据age:" + request.getParameter("age"));
         PrintWriter out = response.getWriter();
         out.println("{result:'jquery Ajax load 数据'}");
         out.flush();

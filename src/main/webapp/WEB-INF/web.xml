@@ -12,13 +12,13 @@
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
 
+
     <servlet>
         <servlet-name>ajaxServlet</servlet-name>
-        <servlet-class>com.java1234.web.AjaxServlet</servlet-class>
+        <servlet-class>com.java1234.c06.AjaxServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>ajaxServlet</servlet-name>
-        <url-pattern>/ajax</url-pattern>
+        <url-pattern>/ajaxStudy</url-pattern>
     </servlet-mapping>
 </web-app>
