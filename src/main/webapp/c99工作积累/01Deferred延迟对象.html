@@ -8,8 +8,8 @@
         $(function () {
             /**
              * 定义一个全局变量current。
-             * 在a函数（异步）中为current赋值 ，在b函数中调用current。
-             * 执行结果：b函数没有等待a函数（异步）执行完便执行了，导致b函数使用的全局变量current为初始值。
+             * 在a函数（异步）中为current赋值 ，在b函数中调用current和使用全局变量current。
+             * 执行结果：b函数没有等待a函数（异步）执行完便使用了全局变量current。
              */
             /*var current = '初始值';
 
@@ -27,7 +27,7 @@
             b();*/
 
             /**
-             * 解决方案1：封装回调函数，在a函数（异步）执行完后执行回调函数。
+             * 解决方案1：b函数对全局变量current的操作封装成回调函数，在a函数（异步）执行完后执行回调函数。
              * 缺点：如果有很多的回调函数，则可读性就很差。
              */
             /*var current2 = "初始值";
@@ -51,17 +51,17 @@
 
 
             /**
-             * 解决方案2：使用Deferred延迟对象。可以在回调队列中注册多个回调函数，调用回调队列。
+             * 解决方案2：使用jquery的Deferred延迟对象。在回调队列中注册多个回调函数，调用回调队列。
              */
             /**
-             * 普通例子
+             * 普通例子：这样不太好，使Deferred延迟对象暴露了在外面，容易被修改。
              */
             /*var dtd = $.Deferred();
 
             function wait(dtd) {
                 function tasks() {
                     alert("执行完毕！");
-                    dtd.resolve("哈哈，成功了！");
+                    dtd.resolve();
                     //dtd.reject();
                 };
                 setTimeout(tasks, 2000);
@@ -70,21 +70,22 @@
 
             $.when(wait(dtd))
                 .done(function (data) {
-                    alert(data);
+                    alert("哈哈，执行成功了！！");
                 })
                 .fail(function () {
                     alert("哈哈，执行失败了！！");
                 });*/
             /**
-             * 错误例子：执行状态被外部改变
+             * 错误例子：Deferred延迟对象暴露了在外面，被修改了。
              */
+
             /*var dtd = $.Deferred();
 
             function wait(dtd) {
                 function tasks() {
                     alert("执行完毕！");
-                    dtd.resolve("哈哈，成功了！");
-                    //dtd.reject();
+                    //dtd.resolve();
+                    dtd.reject();
                 };
                 setTimeout(tasks, 2000);
                 return dtd;
@@ -92,70 +93,54 @@
 
             $.when(wait(dtd))
                 .done(function (data) {
-                    alert(data);
+                    alert("哈哈，执行成功了！！");
                 })
                 .fail(function () {
                     alert("哈哈，执行失败了！！");
                 });
-            dtd.resolve();*/
+            dtd.resolve(); //Deferred延迟对象暴露了在外面，被修改了*/
             /**
-             *  防止执行状态被外部改变的方法1：promise一般写法
+             *  好的例子$.when，1：Deferred延迟对象作为内部变量，使用promise绑定回调函数。
              */
 
-            /* var dtd = $.Deferred();
-             var wait = function (dtd) {
-                 function tasks() {
-                     alert("执行完毕！");
-                     dtd.resolve("哈哈，成功了！");
-                     //dtd.reject();
-                 };
-                 setTimeout(tasks, 2000);
-                 return dtd.promise(); // 返回promise对象
-             };
-             var p = wait(dtd); // 新建一个d对象，改为对这个对象进行操作
-             $.when(wait(dtd))
-                 .done(function () {
-                     alert("哈哈，成功了！");
-                 })
-                 .fail(function () {
-                     alert("出错啦！");
-                 });
-             p.resolve(); // 此时，这个语句是无效的*/
-            /**
-             * 防止执行状态被外部改变的方法1：promise更好的写法，将dtd对象变成wait(）函数的内部对象
-             */
-
-            function wait() {
-                var dtd = $.Deferred(); //在函数内部，新建一个Deferred对象
+            /*function wait() {
+                var dtd = $.Deferred();
                 var tasks = function () {
                     alert("执行完毕！");
-                    //dtd.resolve(); // 改变Deferred对象的执行状态
-                    dtd.reject(); // 改变Deferred对象的执行状态
+                    //dtd.resolve();
+                    dtd.reject();
                 };
                 setTimeout(tasks, 2000);
-                return dtd.promise(); // 返回promise对象
+                return dtd.promise();
             };
             $.when(wait())
-                .then(function () {
-                    alert("then");
-                });
+                .done(function (data) {
+                    alert("哈哈，执行成功了！！");
+                })
+                .fail(function () {
+                    alert("哈哈，执行失败了！！");
+                });*/
             /**
-             * 防止执行状态被外部改变的方法2：使用$.Deferred(func)
+             *  好的例子$.Deferred，2：使用 $.Deferred(函数(Deferred对象)) 绑定回调函数。
              */
-            /* function wait(dtd) {
-                 var tasks = function () {
-                     alert("执行完毕！");
-                     dtd.resolve(); // 改变Deferred对象的执行状态
-                 };
-                 setTimeout(tasks, 3000);
-             };
-             $.Deferred(wait)
-                 .done(function () {
-                     alert("哈哈，成功了！");
-                 })
-                 .fail(function () {
-                     alert("出错啦！");
-                 }).then(function () {alert("then1");}, function () {alert("then2");});*/
+            function wait(dtd) {
+                var tasks = function () {
+                    alert("执行完毕！");
+                    dtd.resolve(); // 改变Deferred对象的执行状态
+                };
+                setTimeout(tasks, 3000);
+            };
+            $.Deferred(wait)
+                .done(function () {
+                    alert("哈哈，成功了1！");
+                })
+                .fail(function () {
+                    alert("哈哈，失败了1！");
+                }).then(function () {
+                    alert("哈哈，成功了2！");
+                }, function () {
+                    alert("哈哈，失败了2！");
+                });
         });
     </script>
 </head>
