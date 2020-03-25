@@ -29,6 +29,17 @@
                     alert("Error: " + xhr.status + ": " + xhr.statusText);
                 }
             });
-        });
+        },"text");
     });
+
+
+    /*
+    默认地，jQuery 会智能判断
+    "xml" - 一个 XML 文档
+    "html" - HTML 作为纯文本
+    "text" - 纯文本字符串
+    "script" - 以 JavaScript 运行响应，并以纯文本返回
+    "json" - 以 JSON 运行响应，并以 JavaScript 对象返回
+    "jsonp" - 使用 JSONP 加载一个 JSON 块，将添加一个 "?callback=?" 到 URL 来规定回调
+    */
 </script>
