@@ -8,18 +8,7 @@
             function(response,status,xhr){ //回调函数 }
         );
 2.get/post
-    get：传递的参数会自动追加到url后面
-        $.get(
-             "url",
-            {入参json},
-            function(response,status,xhr){ //回调函数 }
-        );
-    post
-        $.post(
-             "url",
-            {入参json},
-            function(response,status,xhr){ //回调函数 }
-        );
+    $.get/post(url,data,callback(response,status,xhr),type);
     对数据长度的限制：
         GET 方法向 URL 添加数据；URL 的长度是受限制的（URL 的最大长度是 2048 个字符），
         POST 无限制。
