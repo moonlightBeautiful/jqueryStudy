@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证表单插件 Validform</title>
+    <script type="text/javascript" src="../../jquery/jquery-1.11.3.min.js"></script>
+    <link href="./css/Validform-5.3.2.css"/>
+    <script type="text/javascript" src="./Validform-5.3.2.js"></script>
+</head>
+<body>
+&chi; 为什么会出现这个？
+<form class="registerform" action="">
+    <ul>
+        <li>
+            <label class="Validform_label"><span class="need">*</span> 用户名：</label>
+            <input type="text" id="name1" name="name1" class="inputxt" datatype="n6-16" errormsg="用户名范围在6~16位数字之间！"
+                   altercss="gray"/>
+        </li>
+        <li>
+            <label class="Validform_label"><span class="need">*</span> 用户名：</label>
+            <input recheck="name1" type="text" id="name2" name="name2" class="inputxt" datatype="n6-16" />
+        </li>
+    </ul>
+</form>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function () {
+        $(".registerform").Validform();  //就这一行代码！;
+
+        /*var demo = $(".registerform").Validform({
+            tiptype: 3,
+            label: ".label",
+            showAllError: true,
+            datatype: {
+                "zh1-6": /^[\u4E00-\u9FA5\uf900-\ufa2d]{1,6}$/
+            },
+            ajaxPost: true
+        });*/
+
+//通过$.Tipmsg扩展默认提示信息;
+//$.Tipmsg.w["zh1-6"]="请输入1到6个中文字符！";
+        /*demo.tipmsg.w["zh1-6"] = "请输入1到6个中文字符！";
+
+        demo.addRule([{
+            ele: ".inputxt:eq(0)",
+            datatype: "zh2-4"
+        },
+            {
+                ele: ".inputxt:eq(1)",
+                datatype: "*6-20"
+            },
+            {
+                ele: ".inputxt:eq(2)",
+                datatype: "*6-20",
+                recheck: "userpassword"
+            },
+            {
+                ele: "select",
+                datatype: "*"
+            },
+            {
+                ele: ":radio:first",
+                datatype: "*"
+            },
+            {
+                ele: ":checkbox:first",
+                datatype: "*"
+            }]);*/
+    });
+</script>

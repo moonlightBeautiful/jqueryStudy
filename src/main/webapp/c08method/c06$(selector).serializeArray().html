@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$("form").serializeArray()</title>
+    <script type="text/javascript" src="../jquery_v1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<p>
+    通过序列化表单值来创建对象（name 和 value）的数组，也就是[{name,value}...]
+</p>
+<form action="">
+    第一个名称: <input type="text" name="FirstName" value="Mickey"/><br>
+    最后一个名称: <input type="text" name="LastName" value="Mouse"/><br>
+</form>
+</body>
+</html>
+<script>
+    x = $("form").serializeArray();
+    alert(JSON.stringify(x));
+</script>
