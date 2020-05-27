@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按钮相关参数：ok、cancel、okVal、cancelVal、min、max。</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+</head>
+<body>
+<p>
+    button：自定义按钮，位于确定、取消按钮前面<br/>
+    类型：Array<br/>
+    默认：null<br/>
+    说明：按钮属性<br/>
+        name —— 按钮名称。类型：String，必须指定值。<br/>
+        callback —— 按下后执行的函数。类型：Function。默认为Function(){}<br/>
+        注意：点击按钮默认会触发按钮关闭动作，需要阻止触发关闭请让回调函数返回false<br/>
+        focus —— 是否聚焦点，没看懂<br/>
+        disabled —— 是否标记按钮为不可用状态（后续可使用扩展方法让其恢复可用状态）<br/>
+    示例：[{name: '登录', callback: function () {}}, {name: '取消'}] 。
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+        $.dialog({
+            title: '我是标题',
+            content: '我是内容，<span style="color: red">支持HTML</span>',
+            ok: function () {
+                alert('ok按钮回调函数！');
+            },
+            cancel: function () {
+                alert('cancel按钮回调函数！');
+            },
+            okVal: '我是确定按钮文字',
+            cancelVal: '我是取消按钮文字',
+            min: false,
+            max: false,
+            button: [
+                {
+                    name: '同意',
+                },
+                {
+                    name: '不同意',
+                    callback: function () {
+                        return false;
+                    }
+                },
+                {
+                    name: '无效按钮',
+                    disabled: true
+                },
+                {
+                    name: '关闭我',
+                    focus: false,
+                    callback: function () {
+                        return false;
+                    }
+                }
+            ]
+        });
+    });
+</script>

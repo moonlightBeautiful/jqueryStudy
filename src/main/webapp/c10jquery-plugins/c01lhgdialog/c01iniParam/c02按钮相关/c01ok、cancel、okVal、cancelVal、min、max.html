@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按钮相关参数：ok、cancel、okVal、cancelVal、min、max。</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+</head>
+<body>
+<p>
+    1.ok：确定按钮<br/>
+    类型：Function|Boolean<br/>
+    默认：null<br/>
+    说明：null，不显示按钮。true,只显示有关闭功能的按钮。函数，确定按钮的回调函数，如果返回false将阻止对话框关闭<br/>
+    2.cancel：取消按钮<br/>
+    类型：Function|Boolean<br/>
+    默认：null<br/>
+    说明：null，不显示按钮。true,只显示有关闭功能的按钮。函数，取消按钮的回调函数，如果返回false将阻止对话框关闭，右上角x号关闭图标一样调用此函数。<br/>
+    3.okVal：确定按钮文字<br/>
+    类型：String<br/>
+    默认：确定<br/>
+    4.cancelVal：取消按钮文字<br/>
+    类型：String<br/>
+    默认：取消<br/>
+    5.min：是否显示最小化按钮<br/>
+    类型：Boolean<br/>
+    默认：true<br/>
+    6.max：是否显示最大化按钮<br/>
+    类型：Boolean<br/>
+    默认：true<br/>
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+        $.dialog({
+            title: '我是标题',
+            content: '我是内容，<span style="color: red">支持HTML</span>',
+            ok: function () {
+                alert('ok按钮回调函数！');
+            },
+            cancel: function () {
+                alert('cancel按钮回调函数！');
+            },
+            okVal: '我是确定按钮文字',
+            cancelVal: '我是取消按钮文字',
+            min: false,
+            max: false
+        });
+    });
+</script>

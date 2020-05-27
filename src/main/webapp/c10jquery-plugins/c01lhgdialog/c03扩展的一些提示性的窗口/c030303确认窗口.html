@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>确认窗口</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+
+</head>
+<body>
+<p>
+    $.dialog.confirm(content,yes,no)：确认<br/>
+    参数1：内容<br/>
+    参数2：确定按钮回调函数<br/>
+    参数3：取消按钮回调函数<br/>
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+        $.dialog.confirm(
+            '你确定要删除这掉消息吗？',
+            function () {
+                alert('确定');
+            },
+            function () {
+                alert('取消');
+            });
+    });
+</script>

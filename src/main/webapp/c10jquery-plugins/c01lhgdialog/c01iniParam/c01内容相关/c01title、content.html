@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内容相关参数：title、content</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+
+</head>
+<body>
+<p>
+    1.title：窗口的标题文本<br/>
+    类型：String|Boolean<br/>
+    默认：'视窗'<br/>
+    说明：窗口标题的文件字符，如果值为false时就会隐藏标题栏<br/>
+    2.content：窗口中加载的内容<br/>
+    类型：String<br/>
+    默认：'loading...'<br/>
+    说明：支持html标签。如果想加载单独的页面(iframe方式)，只要在字符前加'url:'字符即可，如：'url:content.html'<br/>
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+        /* $.dialog({
+             title: '我是标题',
+             content: '我是内容，<span style="color: red">支持HTML</span>'
+         });*/
+
+        $.dialog({
+            content: 'url:../content/content.html'
+        });
+    });
+</script>

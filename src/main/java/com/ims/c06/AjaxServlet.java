@@ -1,4 +1,4 @@
-package com.java1234.c06;
+package com.ims.c06;
 
 import com.alibaba.fastjson.JSON;
 

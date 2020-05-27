@@ -59,3 +59,23 @@
             "text": 返回纯文本字符串
         success(result,status,xhr)	当请求成功时运行的函数
         error(xhr,status,error)	如果请求失败要运行的函数。
+
+
+ajax上传文件
+    1.准备参数
+        var formData = new FormData();//存放文件
+        formData.append("file", $('#uploadFile')[0].files[0]);  //单文件 uploadFile id 单个文件
+        //多文件 uploadFile id 单个文件
+        //for(var i=0; i<$('#uploadFile')[0].files.length;i++){     
+        //   formData.append('file[]', $('#uploadFile')[0].files[i]);
+        //}
+        formData.append("tableName","<%=archTableName%>");
+        formData.append("folderGuid","<%=folderGuidParam%>");
+        formData.append("fileStatus","<%=fileTypeParam%>");
+        formData.append("fileType","3");
+    2.ajax配置
+        processData设置为false
+        contentType设置为false
+    3.后台接受
+    
+    

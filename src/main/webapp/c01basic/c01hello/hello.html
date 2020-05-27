@@ -3,17 +3,20 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>hello jquery</title>
-    <script type="text/javascript" src="../js/jquery-1.4.1.js"></script>
+    <script type="text/javascript" src="../../jquery/jquery-1.11.3.js"></script>
     <script type="text/javascript">
+        /**
+         *不使用jquery和使用jquery对比
+         */
         /*
-               不使用jquery和使用jquery对比
-        */
+         *  1.不使用jquery
+         */
         /*function hello() {
             var content = document.getElementById("content").value;
             alert("hello " + content);
         }*/
 
-        $(document).ready(function () {
+        $(document).ready(function () {  //一般直接用  $(function () {});
             $("#actionButton").click(function () {
                 alert($("#content").val());
             });

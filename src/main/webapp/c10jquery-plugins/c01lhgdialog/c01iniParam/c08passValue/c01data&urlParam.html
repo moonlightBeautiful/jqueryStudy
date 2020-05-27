@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内容相关参数：title、content</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.js?skin=mac"></script>
+
+</head>
+<body>
+<p>
+    fixed：开启静止定位<br/>
+    1.data：传递给打开窗口的值<br/>
+    类型：js的数据类型都可以<br/>
+    默认：undefined<br/>
+    说明：在打开的窗口中使用frameElement.api.data获取<br/>
+    2.urlParam：拼接在url后面参数<br/>
+    类型：{key:value...}<br/>
+    默认：无<br/>
+    说明：在打开的窗口中使用request.getParameter()获取<br/>
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+       /* var urlParam = {
+            age: 29,
+            name: "高旭"
+        };
+        var _urlParam = "";
+        var url = "url";
+        var _index = 1;
+        for (var _name in urlParam) {
+            if (_index === 1) {
+                _urlParam = _urlParam + _name + "=" + urlParam[_name];
+            } else {
+                _urlParam = _urlParam + "&" + _name + "=" + urlParam[_name];
+            }
+            _index++;
+
+        }
+        if (_urlParam !== "") {
+            url = url + "?" + _urlParam;
+        }
+        alert(url);*/
+        $.dialog({
+            data: {
+                name: 'gaoXu'
+            },
+            urlParam: {
+                name: 'gaoXu',
+                age:11
+            },
+            content: 'url:./content/content.jsp'
+        });
+    });
+</script>

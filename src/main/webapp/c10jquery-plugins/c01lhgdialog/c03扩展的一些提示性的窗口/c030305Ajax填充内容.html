@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax填充内容</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+
+</head>
+<body>
+<p>
+    $.dialog.load(url,options,cache)：Ajax填充内容，解析html标签和js脚本<br/>
+    参数1：地址<br/>
+    参数2：配置参数<br/>
+    参数3：是否允许缓存. 默认false<br/>
+</p>
+</body>
+</html>
+<script>
+
+    $(function () {
+        $.dialog.load(
+            './content/ajax.html'
+        );
+    });
+</script>

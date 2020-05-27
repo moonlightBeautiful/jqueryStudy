@@ -16,7 +16,7 @@
         $("ul li:eq(1)").removeAttr("title")
 操作dom节点样式
     1.通过class
-        1.获取 设置 通过attr
+        1.获取 设置 通过 attr
         2.追加 移除 通过 addClass removeClass
     2.通过css
         1.获取css样式 $("#jq").css("color")

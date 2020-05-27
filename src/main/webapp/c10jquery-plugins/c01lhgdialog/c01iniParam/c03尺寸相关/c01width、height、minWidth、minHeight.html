@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内容相关参数：title、content</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+
+</head>
+<body>
+<p>
+    1.title：窗口的标题文本<br/>
+    width：指定窗口的宽度<br/>
+    类型：Number|String<br/>
+    默认：'auto'<br/>
+    说明：auto，对话框框架会自己适应内容。百分值，会以根据浏览器可视范围作为基准，此时如果浏览器窗口大小被改变其也会进行相应的调整<br/>
+    2.height：指定窗口的高度<br/>
+    类型：Number|String<br/>
+    默认：'auto'<br/>
+    说明：auto，对话框框架会自己适应内容。百分值，会以根据浏览器可视范围作为基准，此时如果浏览器窗口大小被改变其也会进行相应的调整<br/>
+    3.minWidth：最小宽度限制<br/>
+    类型：Number<br/>
+    默认：96<br/>
+    说明：此参数值只能为数字<br/>
+    4.minHeight：最小高度限制<br/>
+    类型：Number<br/>
+    默认：32<br/>
+    说明：此参数值只能为数字<br/>
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+        $.dialog({
+            content: 'url:../content/content.html',
+            width: '700px',
+            height: 500,
+            minWidth: 500,
+            minHeight: 500
+        });
+    });
+</script>

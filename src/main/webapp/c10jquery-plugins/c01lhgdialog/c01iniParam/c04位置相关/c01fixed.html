@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内容相关参数：title、content</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+
+</head>
+<body>
+<p>
+    fixed：开启静止定位<br/>
+    类型：Boolean<br/>
+    默认：false<br/>
+    说明：静止定位是css2.1的一个属性，它静止在浏览器某个地方不动，也不受滚动条拖动影响<br/>
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+        $.dialog({
+            fixed: true,
+            content: '请拖动滚动条查看'
+        });
+    });
+</script>

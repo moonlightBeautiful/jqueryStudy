@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>hello jquery</title>
+    <script type="text/javascript" src="../jquery/jquery-1.11.3.js"></script>
+    <script>
+        $(function () {
+            /**
+             * 判断是否选中
+             */
+            // 选中返回true，未选中返回false
+            /* alert($('#test').is(":checked")); // = alert($('#test').prop("checked"));
+            // alert($('#test').prop("checked"));*/
+            /**
+             * 设置选中
+             */
+            //$("#test").prop("checked", "true");
+            //$("#test").prop("checked", true);
+            //$("#test").attr("checked","true");
+            //$("#test").attr("checked",true);
+            /**
+             * 设置不选中
+             */
+            //$("#test").attr("checked",false);
+            // $("#test").prop("checked",false);
+            //$("#test").removeAttr("checked");
+        });
+
+
+    </script>
+</head>
+<body>
+<input type="checkbox" id="test" class="test" checked="">同意
+</body>
+</html>

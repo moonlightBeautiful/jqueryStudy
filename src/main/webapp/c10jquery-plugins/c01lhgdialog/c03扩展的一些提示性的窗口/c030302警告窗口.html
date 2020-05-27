@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>警告窗口</title>
+    <!--
+        <script type="text/javascript" src="../../jquery-plugins/lhgdialog-4.2.0/lhgcore.lhgdialog.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../jquery/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../../../jquery-plugins/lhgdialog-4.2.0/lhgdialog.min.js?skin=mac"></script>
+
+</head>
+<body>
+<p>
+    $.dialog.alert(content,callback)：警告<br/>
+    参数1：内容<br/>
+    参数2：窗口关闭时执行的回调函数<br/>
+</p>
+</body>
+</html>
+<script>
+    $(function () {
+        $.dialog.alert('确定按钮有回调函数！', function () {
+            alert('我是回调函数');
+        });
+    });
+</script>
