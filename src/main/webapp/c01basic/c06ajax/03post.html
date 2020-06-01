@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>post</title>
-    <script type="text/javascript" src="../jquery_v1.11.1/jquery.js"></script>
+    <script type="text/javascript" src="../../jquery/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 <input id="b3" type="button" value="Post加载"/><br/>
@@ -11,25 +11,23 @@
 年龄：<input type="text" id="age3"/>
 </body>
 </html>
+
 <script type="text/javascript">
-    alert($);
     $(document).ready(function () {
         $("#b3").click(function () {
             $.post("/ajax?action=post", {id: 4}, function (responseTxt, statusTxt, xhr) {
                 if (statusTxt == "success") {
                     alert("外部内容加载成功!返回的数据：" + responseTxt + " ，xhr.status：" + xhr.status);
                     var obj = JSON.parse(responseTxt);
+                    //obj = eval("(" + responseTxt + ")");
                     $("#name3").val(obj.name);
                     $("#age3").val(obj.age);
-                    /*responseTxt = eval("(" + responseTxt + ")");
-                    $("#name3").val(responseTxt.name);
-                    $("#age3").val(responseTxt.age);*/
                 }
                 if (statusTxt == "error") {
                     alert("Error: " + xhr.status + ": " + xhr.statusText);
                 }
             });
-        },"text");
+        }, "text");
     });
 
 

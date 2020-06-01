@@ -96,4 +96,6 @@ public class AjaxServlet extends HttpServlet {
         out.close();
     }
 
+
+
 }

@@ -1,15 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2020/3/23
-  Time: 17:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>load</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/jquery_v3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 
@@ -34,7 +27,8 @@
                     if (statusTxt == "error") {
                         alert("Error: " + xhr.status + ": " + xhr.statusText);
                     }
-                });
+                }
+            );
         });
     });
 </script>

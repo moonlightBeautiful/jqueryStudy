@@ -14,7 +14,12 @@ hello
             title: '欢迎',
             content: '欢迎使用lhgdialog对话框组件！'
         });
-    });  
+    }); 
+修改源码
+    给请求传值，自己扩展的
+        urlParam，而不是用url后面拼接参数。
+    给js传值，原本的功能
+        data，frameElement.api 
 使用：
     1.窗口lhgdialog.min.js文件的url参数。
         参数形式为：<script type="text/javascript" src="lhgdialog.min.js?self=true&skin=chrome"></script>
