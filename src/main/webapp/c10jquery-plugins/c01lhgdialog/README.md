@@ -18,8 +18,9 @@ hello
 修改源码
     给请求传值，自己扩展的
         urlParam，而不是用url后面拼接参数。
-    给js传值，原本的功能
-        data，frameElement.api 
+    给js传值，原本的功能，frameElement.api为窗口实例
+        data为窗口属性，所以，frameElement.api.data调用窗口实例属性。
+        api.opener 为源窗口
 使用：
     1.窗口lhgdialog.min.js文件的url参数。
         参数形式为：<script type="text/javascript" src="lhgdialog.min.js?self=true&skin=chrome"></script>
@@ -101,7 +102,82 @@ hello
             3.top：相对于可视区域的Y轴的坐标
                 类型：Number|String
                 默认：'50%'
-                说明：可以使用'0%' ~ '100%'作为相对坐标，如果浏览器窗口大小被改变其也会进行相应的调整            
+                说明：可以使用'0%' ~ '100%'作为相对坐标，如果浏览器窗口大小被改变其也会进行相应的调整      
+        5.视觉相关
+            1.lock：开启锁屏
+                类型：Boolean
+                默认：false
+                说明：中断用户对话框之外的交互，用于显示非常重要的操作/消息，所以不建议频繁使用它，它会让操作变得繁琐
+            background：锁屏遮罩颜色
+                类型：String
+                默认：'#FFF'
+                说明：请注意这是一个会影响到全局的配置，后续出现的对话框的遮罩颜色都和此设置一样，再设置不再起作用
+            opacity：锁屏遮罩透明度
+                类型：Number
+                默认：.5
+                说明：请注意这是一个会影响到全局的配置，后续出现的对话框的遮罩透明度都和此设置一样，再设置不再起作用
+            icon：定义消息图标
+                类型：String
+                默认：null
+                说明：可定义“skins/icons/”目录下的图标名作为参数名（一定要包含后缀名）
+            titleIcon：标题栏左边的小图标
+                类型：String
+                默认：null
+                说明：可定义“skins/icons/”目录下的图标名作为参数名（一定要包含后缀名）
+            padding：内容与边界填充边距(即css padding)
+                类型：String
+                默认：'15px 10px'
+                说明：如果内容页为iframe方式加载的则在css里需要设置为0，要不在IE6中易出问题
+            skin：多皮肤共存时指定的皮肤样式
+                类型：String
+                默认：''
+                说明：指定窗口要使用的皮肤的主类名
+        6.交互相关
+            time：设置对话框显示时间
+                类型：Number
+                默认：null
+                说明：以秒为单位
+            resize：是否允许用户调节尺寸
+                类型：Boolean
+                默认：true
+            drag：是否允许用户拖动位置
+                类型：Boolean
+                默认：true
+            esc：是否允许用户按Esc键关闭对话框
+                类型：Boolean
+                默认：true
+                说明：只有窗口获得焦点后才能使用此功能
+            cache：是否缓存iframe方式加载的窗口内容页
+                类型：Boolean
+                默认：true
+                说明：只有使用iframe方式加载的单独页面的内容时此参数才有效
+            extendDrag：是否开启增强拖拽体验
+                类型：Boolean
+                默认：true
+                说明：1.此属性为全局性设置，不能在窗口调用的参数里设置，只能使用lhgdialog.setting.extendDrag来设置
+                     2.防止鼠标落入iframe导致不流畅，对超大对话框拖动优化
+        7.高级相关
+            id：设定对话框唯一标识
+                类型：String|Number
+                默认：null
+                说明：1.防止重复弹出
+                     2.定义id后可以使用this.get(youID)和lhgdialog.list[youID]获取扩展方法
+            zIndex：重置全局zIndex初始值
+                类型：Number
+                默认：1976
+                说明：用来改变对话框叠加高度，请注意这是一个会影响到全局的配置，后续出现的对话框叠加高度将重新按此累加。
+            init：对话框弹出后执行的函数
+                类型：Function
+                默认：null
+                说明：如果是以iframe方式加载的内容页此函数会在内容页加载完成后执行
+            close：对话框关闭前执行的函数
+                类型：Function
+                默认：null
+                说明：函数如果返回false将阻止对话框关闭。请注意这不是关闭按钮的回调函数，无论何种方式关闭对话框，close都将执行。
+            parent：打开子窗口的父窗口对象
+                类型：Object
+                默认：null
+                说明：此参数只用在打开多层窗口都使用遮罩层时才会用到此参数，注意多层窗口锁屏时一定要加此参数      
         8.传值相关
             1.data：传递给打开窗口的值
                 类型：js的数据类型都可以
@@ -111,8 +187,93 @@ hello
                 类型：{key:value...}
                 默认：无
                 说明：在打开的窗口中使用request.getParameter()获取
-                            
-    3.扩展的一些提示性的窗口
+    3.扩展方法 
+        窗口实例对象内部方法
+            close()：关闭对话框
+                参数：无
+                说明：在需要关闭窗口时可调用此方法
+            reload(win,url)：刷新或跳转指定的页面
+                参数1：指定的要刷新或跳转的页面的window对象
+                参数2：要跳转到的页面地址
+            show()：显示对话框
+                参数：无
+            hide()：隐藏对话框
+                参数：无
+            title(value)：写入标题
+                参数1：标题的文本
+                说明：无参数则返回创建的窗口对象实例
+            content(value)：向窗口中写入内容
+                参数1：窗口中的内容
+                说明：如果参数的前3个字符为'url:'参使用iframe方式加载单独的内容页，无参数则返回创建的窗口对象实例
+            button(arguments)：插入一个自定义按钮
+                参数1：name -- 按钮名称
+                参数2：callback -- 按下后执行的函数
+                参数3：focus -- 是否聚焦点
+                参数4：disabled -- 是否标记按钮为不可用状态（后续可使用扩展方法让其恢复可用状态）
+                说明：此参数为多个对象
+                示例：
+                button({
+                    name: '登录',
+                    focus: true,
+                    callback: function(){}
+                },{
+                    name: '取消'
+                });
+            position(left,top)：重新定位对话框
+                参数1：X轴的坐标
+                参数2：Y轴的坐标
+                说明：参数可以为数字或带单位的字符如：'200px'或使用'0%' ~ '100%'作为相对坐标
+            size(width,height)：重新设定对话框大小
+                参数1：窗口的宽度
+                参数2：窗口的高度
+                说明：参数可以为数字或带单位的字符如：'200px'或使用'0%' ~ '100%'百分值单位
+            max()：最大化窗口
+                参数：无
+            min()：最小化窗口
+                参数：无
+            lock()：锁屏
+                参数：无
+            unlock()：解锁
+                参数：无
+            time(val,callback)：定时关闭（单位秒）
+                参数1：数值，以秒为单位
+                参数2：回调函数
+                说明：参数2为窗口关闭前执行的函数
+            focus() ：自动设置窗口中焦点元素
+                参数：无
+            zindex() ：置顶窗口
+                参数：无
+            get(id,object) ：根据指定id获取相应的对象
+                参数1：窗口的id
+                参数2：是否返回的是窗口实例对象
+                说明：参数2的值只有为数字1时才返回指定id的窗口的实例对象
+            api：内容页中调用窗口实例对象接口
+                说明：此对象属性是附加在iframe元素的一个属性，在iframe方式加载的内容页中通过调用此函数来获取窗口的实例对象，
+                示例：var api = frameElement.api; 注：此句代码是加在iframe方式加载的内容页中的，一定要注意
+            opener：加载窗口组件页面的window对象
+                说明：此属性主要用在iframe方式加载的内容页中，
+                示例：var api = frameElement.api, W = api.opener; 此时的W即为加载窗口组件页面的window对象
+            iframe：iframe方式加载内容的iframe对象
+                说明：此属性主要用于在窗口组件调用页面操作窗口中的iframe对象
+            iwin：iframe方式加载内容页的window对象
+                说明：此属性主要用于在窗口组件调用页面操作窗口中的window对象，示例：var dg = $.dialog({'url:content.html',init:function(){ if( this.iwin.document.body ) alert('窗口内容页加载完成'); });
+        窗口外部方法 
+            $.dialog.focus：获取焦点的窗口实例对象
+                说明：可以使用此属性获取儿得焦点的窗口的对象，示例：var dg = $.dialog.focus; 此时的dg就是当前焦点窗口的对象实例
+            $.dialog.list：所有窗口对象实例的集合
+                说明：通过此属性可获取所有打开的窗口对象，示例：关闭页面所有对话框
+                var list = $.dialog.list;
+                for( var i in list ){
+                    list[i].close();
+                }
+            $.dialog.top：获取lhgdialog可用最高层window对象
+                说明：这与直接使用window.top不同，它能排除url参数self为true时定义的顶层页面为调用窗口组件页面或者顶层页面为框架集的情况
+            $.dialog.data(name,value)：跨框架数据共享写入接口
+                参数1：存储的数据名
+                参数2：将要存储的任意数据(无此项则返回被查询的数据，如果此值为false就删除指定名称的数据)
+                说明：框架与框架之间以及与主页面之间进行数据交换是非常头疼的事情，常规情况下你必须知道框架的名称才能进行数据交换，如果是在复杂的多层框架下操作简直就是噩梦。
+                而data方法就是为了解决这个问题，你完全不用管框架层级问题，它可以写入任何类型的数据，而做到各个页面之间数据共享。                      
+    4.扩展的一些提示性的窗口
         1.$.dialog.tips(content,time,icon,callback)：短暂提示
             参数1：内容
             参数2：显示时间

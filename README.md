@@ -21,5 +21,7 @@ jquery是否引入成功
     返回函数定义string，则引入，无反应或者返回 undefined，则是么有引入。
 第三方插件
     1.lhgDialog，开源的弹窗提示窗口组件
-        
+        引入js和css
+jqueryUI
+    1.jqGrid    
 
